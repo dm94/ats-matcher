@@ -1,7 +1,8 @@
 
 export type SocialLink = {
-  name: string;
-  value: string;
+  network: string;
+  username: string;
+  website: string;
 }
 
 export type Contact = {

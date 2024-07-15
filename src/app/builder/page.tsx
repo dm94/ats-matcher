@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { AddEducation } from "./_components/add-education";
 import { AddExperiencie } from "./_components/add-experiencie";
 import { Input } from "@/components/ui/input";
@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Education, SocialLink, Position } from "@/types/CurriculumVitae";
 import { Button } from "@/components/ui/button";
 import { setCvState } from "@/store/cvSlice";
-import { useAppDispatch } from "@/store";
+import { useAppDispatch, store } from "@/store";
 
 export default function Builder() {
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
@@ -31,6 +31,22 @@ export default function Builder() {
   const [about, setAbout] = useState<string>("");
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const state = store.getState();
+
+    setSocialLinks(state.cv?.curriculumState?.socialLinks ?? []);
+    setEducation(state.cv?.curriculumState?.education ?? []);
+    setExperiencie(state.cv?.curriculumState?.experiencie ?? []);
+    setProjects(state.cv?.curriculumState?.projects ?? []);
+    setFullName(state.cv?.curriculumState?.fullName ?? "");
+    setPosition(state.cv?.curriculumState?.position ?? "");
+    setAddress(state.cv?.curriculumState?.contact?.address ?? "");
+    setCity(state.cv?.curriculumState?.contact?.city ?? "");
+    setEmail(state.cv?.curriculumState?.contact?.email ?? "");
+    setPhoneNumber(state.cv?.curriculumState?.contact?.phoneNumber ?? "");
+    setAbout(state.cv?.curriculumState?.about ?? "");
+  }, []);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

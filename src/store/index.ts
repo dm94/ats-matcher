@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { saveState } from "./local";
-import { cvReducer } from "@/store/cvSlice";
+import { cvReducer, cvSlice } from "@/store/cvSlice";
 
 const reducer = combineReducers({
-  "cv": cvReducer,
+  [cvSlice.name]: cvReducer,
 });
 
 export const store = configureStore({
@@ -13,6 +13,7 @@ export const store = configureStore({
 
 store.subscribe(() => {
   const data = store.getState();
+
   Object.keys(data).forEach((key: string) => {
     saveState(data[key as keyof typeof data], key)
   })

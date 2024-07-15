@@ -1,13 +1,14 @@
 import { CurriculumVidaeType } from "@/types/CurriculumVitae";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { loadState } from "./local";
 
 export interface CVState {
   curriculumState?: CurriculumVidaeType;
 }
 
 const initialState: CVState = {
-  curriculumState: undefined,
+  curriculumState: loadState("cv"),
 };
 
 export const cvSlice = createSlice({

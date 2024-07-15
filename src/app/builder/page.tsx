@@ -13,15 +13,47 @@ import {
 } from "@/components/ui/accordion";
 import { Textarea } from "@/components/ui/textarea";
 import { Education, SocialLink, Position } from "@/types/CurriculumVitae";
+import { Button } from "@/components/ui/button";
+import { setCvState } from "@/store/cvSlice";
+import { useAppDispatch } from "@/store";
 
 export default function Builder() {
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
   const [education, setEducation] = useState<Education[]>([]);
   const [experiencie, setExperiencie] = useState<Position[]>([]);
   const [projects, setProjects] = useState<Position[]>([]);
+  const [fullName, setFullName] = useState<string>("");
+  const [position, setPosition] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [about, setAbout] = useState<string>("");
+
+  const dispatch = useAppDispatch();
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    dispatch(
+      setCvState({
+        fullName,
+        position,
+        contact: {
+          address,
+          city,
+          email,
+          phoneNumber,
+        },
+        socialLinks,
+        about: "",
+        education,
+        experiencie,
+        projects,
+        languages: [],
+        skills: [],
+      })
+    );
   };
 
   const addEducation = (newEducation: Education) =>
@@ -47,11 +79,31 @@ export default function Builder() {
               id="full_name"
               placeholder="Name Surname"
               required
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
             />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="position">Position / Role *</Label>
-            <Input type="text" id="position" placeholder="Developer" required />
+            <Input
+              type="text"
+              id="position"
+              placeholder="Developer"
+              required
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="email">Email *</Label>
+            <Input
+              type="email"
+              id="email"
+              placeholder="email@email.com"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
         </div>
         <Accordion type="single" collapsible className="w-full">
@@ -60,26 +112,35 @@ export default function Builder() {
             <AccordionContent>
               <div className="flex flex-col gap-4" id="contact-part">
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="email">Email *</Label>
-                  <Input
-                    type="email"
-                    id="email"
-                    placeholder="email@email.com"
-                    required
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
                   <Label htmlFor="address">Address</Label>
-                  <Input type="text" id="address" placeholder="Street..." />
+                  <Input
+                    type="text"
+                    id="address"
+                    placeholder="Street..."
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
                 </div>
                 <div className="grid gap-6 md:grid-cols-2">
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="city">City</Label>
-                    <Input type="text" id="city" placeholder="Talavera..." />
+                    <Input
+                      type="text"
+                      id="city"
+                      placeholder="Talavera..."
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                    />
                   </div>
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="phone_number">Phone Number</Label>
-                    <Input type="tel" id="phone_number" placeholder="666..." />
+                    <Input
+                      type="tel"
+                      id="phone_number"
+                      placeholder="666..."
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
                   </div>
                 </div>
               </div>
@@ -89,7 +150,12 @@ export default function Builder() {
             <AccordionTrigger>About</AccordionTrigger>
             <AccordionContent>
               <div className="flex flex-col gap-2" id="about-part">
-                <Textarea id="about" placeholder="I'am...." />
+                <Textarea
+                  id="about"
+                  placeholder="I'am...."
+                  value={about}
+                  onChange={(e) => setAbout(e.target.value)}
+                />
               </div>
             </AccordionContent>
           </AccordionItem>
@@ -118,6 +184,7 @@ export default function Builder() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+        <Button type="submit">Save</Button>
       </form>
     </main>
   );

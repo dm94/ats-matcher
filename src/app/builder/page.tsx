@@ -6,11 +6,30 @@ import { AddExperiencie } from "./_components/add-experiencie";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { Education, SocialLink, Position } from "@/types/CurriculumVitae";
 
 export default function Builder() {
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+  const [education, setEducation] = useState<Education[]>([]);
+  const [experiencie, setExperiencie] = useState<Position[]>([]);
+  const [projects, setProjects] = useState<Position[]>([]);
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  }
+  };
+
+  const addEducation = (newEducation: Education) =>
+    setEducation([...education, newEducation]);
+
+  const addSocialLinks = (newValue: SocialLink) =>
+    setSocialLinks([...socialLinks, newValue]);
+
+  const addExperiencie = (newValue: Position) =>
+    setExperiencie([...experiencie, newValue]);
+
+  const addProject = (newValue: Position) =>
+    setProjects([...projects, newValue]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-3">
@@ -71,19 +90,19 @@ export default function Builder() {
           <h2 className="text-md font-bold text-gray-900 dark:text-white">
             Education
           </h2>
-          <AddEducation />
+          <AddEducation onAdd={addEducation} />
         </div>
         <div className="flex flex-col gap-4" id="experiencie-part">
           <h2 className="text-md font-bold text-gray-900 dark:text-white">
             Experiencie
           </h2>
-          <AddExperiencie />
+          <AddExperiencie onAdd={addExperiencie} />
         </div>
         <div className="flex flex-col gap-4" id="projects-part">
           <h2 className="text-md font-bold text-gray-900 dark:text-white">
             Projects
           </h2>
-          <AddExperiencie />
+          <AddExperiencie onAdd={addProject} />
         </div>
       </form>
     </main>

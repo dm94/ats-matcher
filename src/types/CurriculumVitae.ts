@@ -1,4 +1,3 @@
-
 export type SocialLink = {
   textToShow: string;
   website: string;

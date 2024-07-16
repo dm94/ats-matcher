@@ -19,6 +19,7 @@ import {
   SocialLink,
   Position,
   AdditionalInfo,
+  CurriculumVidaeType,
 } from "@/types/CurriculumVitae";
 import { Button } from "@/components/ui/button";
 import { setCvState } from "@/store/cvSlice";
@@ -26,7 +27,11 @@ import { useAppDispatch, store } from "@/store";
 import { ListItem } from "./_components/list-item";
 import { shallowEqual } from "@/lib/utils";
 
-export default function Builder() {
+type Props = {
+  onSave: (value: CurriculumVidaeType) => void;
+};
+
+export default function Builder({ onSave }: Readonly<Props>) {
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
   const [education, setEducation] = useState<Education[]>([]);
   const [experiencie, setExperiencie] = useState<Position[]>([]);
@@ -57,29 +62,33 @@ export default function Builder() {
     setPhoneNumber(state.cv?.curriculumState?.contact?.phoneNumber ?? "");
     setAbout(state.cv?.curriculumState?.about ?? "");
     setAditionalInfo(state.cv?.curriculumState?.aditionalInfo ?? []);
+
+    state?.cv?.curriculumState && onSave(state.cv.curriculumState);
   }, []);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    dispatch(
-      setCvState({
-        fullName,
-        position,
-        contact: {
-          address,
-          city,
-          email,
-          phoneNumber,
-        },
-        socialLinks,
-        about,
-        education,
-        experiencie,
-        projects,
-        aditionalInfo,
-      })
-    );
+    const resume = {
+      fullName,
+      position,
+      contact: {
+        address,
+        city,
+        email,
+        phoneNumber,
+      },
+      socialLinks,
+      about,
+      education,
+      experiencie,
+      projects,
+      aditionalInfo,
+    };
+
+    dispatch(setCvState(resume));
+
+    onSave(resume);
   };
 
   const addEducation = (newEducation: Education) =>
@@ -117,7 +126,7 @@ export default function Builder() {
     );
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-6 w-full max-w-xl">
+    <form onSubmit={onSubmit} className="flex flex-col gap-6 w-full max-w-md">
       <h2 className="font-semibold text-xl">Curriculum details</h2>
       <div className="flex flex-col gap-4" id="header-part">
         <div className="flex flex-col gap-2">
@@ -288,7 +297,7 @@ export default function Builder() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-      <Button type="submit">Save</Button>
+      <Button type="submit">Save changes</Button>
     </form>
   );
 }

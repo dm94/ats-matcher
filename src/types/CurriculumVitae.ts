@@ -1,7 +1,6 @@
 
 export type SocialLink = {
-  network: string;
-  username: string;
+  textToShow: string;
   website: string;
 }
 
@@ -29,9 +28,9 @@ export type Position = {
   description: string;
 }
 
-export type Language = {
-  language: string;
-  level: "A0" | "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "NATIVE";
+export type AdditionalInfo = {
+  title: string;
+  description: string;
 }
 
 export type CurriculumVidaeType = {
@@ -43,6 +42,5 @@ export type CurriculumVidaeType = {
   education: Education[];
   experiencie: Position[];
   projects: Position[];
-  languages: Language[];
-  skills: string[];
+  aditionalInfo: AdditionalInfo[];
 }

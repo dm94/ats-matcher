@@ -1,45 +1,23 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
-import { persistReducer } from "redux-persist";
-import { cvReducer } from "@/store/cvSlice";
-import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { saveState } from "./local";
+import { cvReducer, cvSlice } from "@/store/cvSlice";
 
-const createNoopStorage = () => {
-  return {
-    getItem() {
-      return Promise.resolve(null);
-    },
-    setItem(_key: string, value: number) {
-      return Promise.resolve(value);
-    },
-    removeItem() {
-      return Promise.resolve();
-    },
-  };
-};
-
-const storage =
-  typeof window !== "undefined"
-    ? createWebStorage("local")
-    : createNoopStorage();
-
-const cvPersistConfig = {
-  key: "cv",
-  storage: storage,
-  whitelist: ["cvState"],
-};
-
-const persistedReducer = persistReducer(cvPersistConfig, cvReducer);
-
-const rootReducer = combineReducers({
-  cv: persistedReducer,
+const reducer = combineReducers({
+  [cvSlice.name]: cvReducer,
 });
 
 export const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+  reducer,
 });
+
+store.subscribe(() => {
+  const data = store.getState();
+
+  Object.keys(data).forEach((key: string) => {
+    saveState(data[key as keyof typeof data], key)
+  })
+})
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -1,13 +1,13 @@
 
 export type SocialLink = {
-  name: string;
-  value: string;
+  textToShow: string;
+  website: string;
 }
 
 export type Contact = {
   address?: string;
   city?: string;
-  email?: string;
+  email: string;
   phoneNumber?: string;
 }
 
@@ -19,7 +19,7 @@ export type Education = {
   location?: string;
 }
 
-export type Experiencie = {
+export type Position = {
   organization: string;
   positionTitle: string;
   location: string;
@@ -28,9 +28,9 @@ export type Experiencie = {
   description: string;
 }
 
-export type Language = {
-  language: string;
-  level: "A0" | "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | "NATIVE";
+export type AdditionalInfo = {
+  title: string;
+  description: string;
 }
 
 export type CurriculumVidaeType = {
@@ -40,8 +40,7 @@ export type CurriculumVidaeType = {
   socialLinks: SocialLink[];
   about?: string;
   education: Education[];
-  experiencie: Experiencie[];
-  projects: Experiencie[];
-  languages: Language[];
-  skills: string[];
+  experiencie: Position[];
+  projects: Position[];
+  aditionalInfo: AdditionalInfo[];
 }

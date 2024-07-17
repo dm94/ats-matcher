@@ -2,9 +2,11 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { saveState } from "./local";
 import { cvReducer, cvSlice } from "@/store/cvSlice";
+import { configReducer, configSlice } from "@/store/configSlice";
 
 const reducer = combineReducers({
   [cvSlice.name]: cvReducer,
+  [configSlice.name]: configReducer,
 });
 
 export const store = configureStore({

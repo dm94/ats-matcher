@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import Builder from "@/components/pages/form-builder/builder";
-import ReduxProvider from "@/store/redux-provider";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { CurriculumVidaeType } from "@/types/CurriculumVitae";
+import { store } from "@/store";
 
 export default function Checker() {
   const [offer, setOffer] = useState<string>("");
@@ -14,14 +14,17 @@ export default function Checker() {
   const [resume, setResume] = useState<CurriculumVidaeType>();
 
   const analyseCurriculum = async () => {
+    const state = store.getState();
+
     const response = await fetch("/api/cvcheck", {
       method: "POST",
       body: JSON.stringify({
         config: {
-          baseURL: "http://localhost:1234/v1",
-          compatibility: "compatible",
-          apiKey: "",
-          model: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GGUF",
+          baseURL: state["ai-config"].config?.baseURL ?? "",
+          compatibility:
+            state["ai-config"].config?.compatibility ?? "compatible",
+          apiKey: state["ai-config"].config?.apiKey ?? "",
+          model: state["ai-config"].config?.model ?? "",
         },
         offer,
         resume,
@@ -36,10 +39,8 @@ export default function Checker() {
   const updateResume = (value: CurriculumVidaeType) => setResume(value);
 
   return (
-    <main className="flex min-h-screen flex-row p-3 w-full gap-8 flex-wrap justify-around">
-      <ReduxProvider>
-        <Builder onSave={updateResume} />
-      </ReduxProvider>
+    <main className="flex flex-row p-3 w-full gap-8 flex-wrap justify-around">
+      <Builder onSave={updateResume} />
       <section className="flex flex-col gap-4 w-full max-w-md content-start">
         <div className="flex flex-col gap-2 w-full" id="job-offer-part">
           <Label htmlFor="job">Job Offer</Label>

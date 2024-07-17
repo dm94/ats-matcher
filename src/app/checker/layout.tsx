@@ -1,14 +1,11 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Checker | ATS Matcher",
-  description: "Check the ATS of your curriculum",
-};
+import ReduxProvider from "@/store/redux-provider";
 
 export default function CheckerLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return <ReduxProvider>{children}</ReduxProvider>;
 }

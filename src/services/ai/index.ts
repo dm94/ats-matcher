@@ -21,7 +21,7 @@ export const generateObjectResponse = async (config: AIConfig, prompt: string, s
   const openai = createAiInstance(config);
 
   const { object } = await generateObject({
-    model:  openai.chat(config.model ?? "gpt-4o"),
+    model: openai.chat(config.model ?? "gpt-4o"),
     schema,
     prompt,
   });

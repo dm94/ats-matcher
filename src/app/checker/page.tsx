@@ -50,6 +50,7 @@ export default function Checker() {
           <Textarea
             id="job"
             value={offer}
+            className="min-h-44"
             onChange={(e) => setOffer(e.target.value)}
           />
         </div>
@@ -58,7 +59,7 @@ export default function Checker() {
         <Button type="button" onClick={() => analyseCurriculum()}>
           Check the CV
         </Button>
-        <p className="min-h-36 max-h-44 border p-2 border-slate-500 rounded-lg overflow-auto">
+        <p className="min-h-36 max-h-80 border p-2 border-slate-500 rounded-lg overflow-auto whitespace-break-spaces">
           {message}
         </p>
       </section>

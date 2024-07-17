@@ -2,7 +2,7 @@
 import { useState, ChangeEvent } from "react";
 
 export default function Uploader() {
-  const [file, setFile] = useState();
+  const [file, setFile] = useState<File>();
   const [dragOver, setDragOver] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -11,19 +11,19 @@ export default function Uploader() {
     }
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = (e: any) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     setFile(file);
     setDragOver(false);
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: any) => {
     e.preventDefault();
     setDragOver(true);
   };
 
-  const handleDragLeave = (e) => {
+  const handleDragLeave = (e: any) => {
     e.preventDefault();
     setDragOver(false);
   };

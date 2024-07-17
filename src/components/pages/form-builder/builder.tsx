@@ -126,7 +126,7 @@ export default function Builder({ onSave }: Readonly<Props>) {
     );
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-6 w-full max-w-md">
+    <form onSubmit={onSubmit} className="flex flex-col gap-6 w-full max-w-xl">
       <h2 className="font-semibold text-xl">Curriculum details</h2>
       <div className="flex flex-col gap-4" id="header-part">
         <div className="flex flex-col gap-2">

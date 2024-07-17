@@ -39,9 +39,9 @@ export default function Checker() {
   const updateResume = (value: CurriculumVidaeType) => setResume(value);
 
   return (
-    <main className="flex flex-row p-3 w-full gap-8 flex-wrap justify-around">
+    <main className="flex flex-row p-3 w-full gap-8 justify-around flex-wrap lg:flex-nowrap">
       <Builder onSave={updateResume} />
-      <section className="flex flex-col gap-4 w-full max-w-md content-start">
+      <section className="flex flex-col gap-4 w-full max-w-xl content-start">
         <div className="flex flex-col gap-2 w-full" id="job-offer-part">
           <Label htmlFor="job">Job Offer</Label>
           <p className="text-sm">
@@ -55,7 +55,7 @@ export default function Checker() {
           />
         </div>
       </section>
-      <section className="flex flex-col gap-4 w-full max-w-md content-start">
+      <section className="flex flex-col gap-4 w-full max-w-xl content-start">
         <Button type="button" onClick={() => analyseCurriculum()}>
           Check the CV
         </Button>

@@ -63,7 +63,7 @@ export function ConfigModal({ open, setOpen }: Readonly<Props>) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
-          <DialogTitle>Configuracion</DialogTitle>
+          <DialogTitle>Configuration</DialogTitle>
           <DialogDescription>
             Fill in the API data to be used, the system is compatible with
             OpenAI compatible APIs.

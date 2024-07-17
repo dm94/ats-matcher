@@ -21,7 +21,7 @@ export default function Checker() {
           baseURL: "http://localhost:1234/v1",
           compatibility: "compatible",
           apiKey: "",
-          model: "RichardErkhov/h2oai_-_h2ogpt-4096-llama2-7b-chat-gguf",
+          model: "MaziyarPanahi/Meta-Llama-3-70B-Instruct-GGUF",
         },
         offer,
         resume,
@@ -36,11 +36,11 @@ export default function Checker() {
   const updateResume = (value: CurriculumVidaeType) => setResume(value);
 
   return (
-    <main className="flex min-h-screen flex-row flex-row p-3 w-full gap-8 flex-wrap">
+    <main className="flex min-h-screen flex-row p-3 w-full gap-8 flex-wrap justify-around">
       <ReduxProvider>
         <Builder onSave={updateResume} />
       </ReduxProvider>
-      <section className="flex flex-col gap-4 w-full max-w-md">
+      <section className="flex flex-col gap-4 w-full max-w-md content-start">
         <div className="flex flex-col gap-2 w-full" id="job-offer-part">
           <Label htmlFor="job">Job Offer</Label>
           <p className="text-sm">
@@ -53,11 +53,13 @@ export default function Checker() {
           />
         </div>
       </section>
-      <section className="flex flex-col gap-4 w-full max-w-md">
+      <section className="flex flex-col gap-4 w-full max-w-md content-start">
         <Button type="button" onClick={() => analyseCurriculum()}>
-          Check the ATS
+          Check the CV
         </Button>
-        {message && <div>{message}</div>}
+        <p className="min-h-36 max-h-44 border p-2 border-slate-500 rounded-lg overflow-auto">
+          {message}
+        </p>
       </section>
     </main>
   );

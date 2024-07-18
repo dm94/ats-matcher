@@ -1,27 +1,20 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { FirstCard } from "./_components/first-card";
+import { SecondCard } from "./_components/second-card";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Card>
-        <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Card Content</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
-      </Card>
+    <main className="flex flex-col w-full justify-center p-4 gap-16 items-center">
+      <div className="flex flex-row items-start justify-center flex-wrap gap-16 min-h-full">
+        <FirstCard />
+        <SecondCard />
+      </div>
+      <Link
+        className="flex justify-center items-center max-w-80 w-80 bg-emerald-900 text-emerald-50 hover:bg-emerald-950 h-11 rounded-md px-8"
+        href="/checker"
+      >
+        {"Let's start"}
+      </Link>
     </main>
   );
 }

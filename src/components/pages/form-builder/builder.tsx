@@ -127,7 +127,10 @@ export default function Builder({ onSave }: Readonly<Props>) {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-6 w-full max-w-xl">
-      <h2 className="font-semibold text-xl">Curriculum details</h2>
+      <div className="flex flex-col gap-2">
+        <h2 className="font-semibold text-xl">Curriculum details</h2>
+        <p className="text-sm">Fill in the data you want in your CV</p>
+      </div>
       <div className="flex flex-col gap-4" id="header-part">
         <div className="flex flex-col gap-2">
           <Label htmlFor="full_name">Full name *</Label>

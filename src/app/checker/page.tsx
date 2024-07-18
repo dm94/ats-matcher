@@ -43,7 +43,9 @@ export default function Checker() {
       <Builder onSave={updateResume} />
       <section className="flex flex-col gap-4 w-full max-w-xl content-start">
         <div className="flex flex-col gap-2 w-full" id="job-offer-part">
-          <Label htmlFor="job">Job Offer</Label>
+          <Label className="font-semibold text-xl" htmlFor="job">
+            Job Offer
+          </Label>
           <p className="text-sm">
             Write here the job offer with which you want to do the verification
           </p>
@@ -56,6 +58,13 @@ export default function Checker() {
         </div>
       </section>
       <section className="flex flex-col gap-4 w-full max-w-xl content-start">
+        <div className="flex flex-col gap-2">
+          <h2 className="font-semibold text-xl">AI review</h2>
+          <p className="text-sm">
+            The AI will read your resume and the job offer to give you several
+            recommendations
+          </p>
+        </div>
         <Button type="button" onClick={() => analyseCurriculum()}>
           Check the CV
         </Button>

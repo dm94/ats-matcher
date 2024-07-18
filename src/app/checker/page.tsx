@@ -12,8 +12,14 @@ export default function Checker() {
   const [offer, setOffer] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [resume, setResume] = useState<CurriculumVidaeType>();
+  const [requestInProgress, setRequestInProgress] = useState<boolean>(false);
 
   const analyseCurriculum = async () => {
+    if (requestInProgress) {
+      return;
+    }
+
+    setRequestInProgress(true);
     const state = store.getState();
 
     const response = await fetch("/api/cvcheck", {
@@ -33,7 +39,8 @@ export default function Checker() {
 
     const json = await response.json();
 
-    setMessage(json.text);
+    setMessage(json?.text ?? json?.error?.message);
+    setRequestInProgress(false);
   };
 
   const updateResume = (value: CurriculumVidaeType) => setResume(value);
@@ -65,7 +72,11 @@ export default function Checker() {
             recommendations
           </p>
         </div>
-        <Button type="button" onClick={() => analyseCurriculum()}>
+        <Button
+          type="button"
+          onClick={() => analyseCurriculum()}
+          disabled={requestInProgress}
+        >
           Check the CV
         </Button>
         <p className="min-h-36 max-h-80 border p-2 border-slate-500 rounded-lg overflow-auto whitespace-break-spaces">

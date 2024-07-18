@@ -24,7 +24,10 @@ export async function POST(req: Request) {
 
   const prompt = generatePrompt(resume, offer);
 
-  const text = await generateTextResponse(config, prompt);
-
-  return Response.json({ text });
+  try {
+    const text = await generateTextResponse(config, prompt);
+    return Response.json({ text });
+  } catch(error) {
+    return Response.json({ error });
+  }
 }

@@ -14,6 +14,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <script
+          defer
+          data-domain={process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN}
+          src={process.env.NEXT_PUBLIC_ANALYTICS_SCRIPT}
+        ></script>
+      </head>
+
       <body className="bg-white dark:bg-slate-800 min-h-screen">
         <Header />
         {children}

@@ -39,8 +39,7 @@ export default function Builder({ onSave }: Readonly<Props>) {
   const [aditionalInfo, setAditionalInfo] = useState<AdditionalInfo[]>([]);
   const [fullName, setFullName] = useState<string>("");
   const [position, setPosition] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-  const [city, setCity] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [about, setAbout] = useState<string>("");
@@ -56,8 +55,7 @@ export default function Builder({ onSave }: Readonly<Props>) {
     setProjects(state.cv?.curriculumState?.projects ?? []);
     setFullName(state.cv?.curriculumState?.fullName ?? "");
     setPosition(state.cv?.curriculumState?.position ?? "");
-    setAddress(state.cv?.curriculumState?.contact?.address ?? "");
-    setCity(state.cv?.curriculumState?.contact?.city ?? "");
+    setLocation(state.cv?.curriculumState?.contact?.location ?? "");
     setEmail(state.cv?.curriculumState?.contact?.email ?? "");
     setPhoneNumber(state.cv?.curriculumState?.contact?.phoneNumber ?? "");
     setAbout(state.cv?.curriculumState?.about ?? "");
@@ -73,8 +71,7 @@ export default function Builder({ onSave }: Readonly<Props>) {
       fullName,
       position,
       contact: {
-        address,
-        city,
+        location,
         email,
         phoneNumber,
       },
@@ -172,36 +169,24 @@ export default function Builder({ onSave }: Readonly<Props>) {
           <AccordionContent>
             <div className="flex flex-col gap-4" id="contact-part">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="address">Address</Label>
+                <Label htmlFor="location">Location</Label>
                 <Input
                   type="text"
-                  id="address"
-                  placeholder="Street..."
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  id="location"
+                  placeholder="City, Country"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
-              <div className="grid gap-6 md:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="city">City</Label>
-                  <Input
-                    type="text"
-                    id="city"
-                    placeholder="Talavera..."
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="phone_number">Phone Number</Label>
-                  <Input
-                    type="tel"
-                    id="phone_number"
-                    placeholder="666..."
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="phone_number">Phone Number</Label>
+                <Input
+                  type="tel"
+                  id="phone_number"
+                  placeholder="666..."
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
               </div>
             </div>
           </AccordionContent>

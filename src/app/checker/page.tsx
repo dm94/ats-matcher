@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { CurriculumVidaeType } from "@/types/CurriculumVitae";
 import { store } from "@/store";
+import Link from "next/link";
 
 export default function Checker() {
   const [offer, setOffer] = useState<string>("");
@@ -82,6 +83,12 @@ export default function Checker() {
         <p className="min-h-36 max-h-80 border p-2 border-slate-500 rounded-lg overflow-auto whitespace-break-spaces">
           {message}
         </p>
+        <Link
+          className="flex justify-center items-center  bg-emerald-900 text-emerald-50 hover:bg-emerald-950 h-11 rounded-md px-8"
+          href="/pdf"
+        >
+          {"Generate the PDF"}
+        </Link>
       </section>
     </main>
   );

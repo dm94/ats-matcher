@@ -4,8 +4,7 @@ export type SocialLink = {
 }
 
 export type Contact = {
-  address?: string;
-  city?: string;
+  location?: string;
   email: string;
   phoneNumber?: string;
 }

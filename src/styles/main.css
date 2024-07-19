@@ -62,3 +62,9 @@ iframe {
   min-height: calc(100vh - 8rem);
   width: 100%;
 }
+
+body {
+  background-image: radial-gradient(#474bff 1px, transparent 1px);
+  background-size: 100px 100px;
+  background-color: rgba(255, 255, 255, 0);
+}

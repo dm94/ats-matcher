@@ -80,7 +80,7 @@ export default function Checker() {
         >
           Check the CV
         </Button>
-        <p className="min-h-36 max-h-80 border p-2 border-slate-500 rounded-lg overflow-auto whitespace-break-spaces">
+        <p className="min-h-36 max-h-80 border p-2 border-slate-500 rounded-lg overflow-auto whitespace-break-spaces bg-slate-900">
           {message}
         </p>
         <Link

@@ -13,7 +13,7 @@ export default function Home() {
       </div>
       <Link
         className="flex justify-center items-center max-w-80 w-80 bg-emerald-900 text-emerald-50 hover:bg-emerald-950 h-11 rounded-md px-8"
-        href="/checker"
+        href="/loader"
       >
         {"Let's start"}
       </Link>

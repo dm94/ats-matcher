@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { CurriculumVidaeType } from "@/types/CurriculumVitae";
 import { store } from "@/store";
 import Link from "next/link";
+import { jsonExport } from "@/lib/json-export";
 
 export default function Checker() {
   const [offer, setOffer] = useState<string>("");
@@ -46,6 +47,12 @@ export default function Checker() {
 
   const updateResume = (value: CurriculumVidaeType) => setResume(value);
 
+  const exportResume = () => {
+    const jsonStr = JSON.stringify(resume);
+
+    jsonExport(jsonStr, "curriculum-vitae.json");
+  };
+
   return (
     <main className="flex flex-row p-3 w-full gap-8 justify-around flex-wrap lg:flex-nowrap">
       <Builder onSave={updateResume} />
@@ -69,7 +76,7 @@ export default function Checker() {
         <div className="flex flex-col gap-2">
           <h2 className="font-semibold text-xl">AI review</h2>
           <p className="text-sm">
-            The AI will read your resume and the job offer to give you several
+            The AI will read your CV and the job offer to give you several
             recommendations
           </p>
         </div>
@@ -89,6 +96,9 @@ export default function Checker() {
         >
           {"Generate the PDF"}
         </Link>
+        <Button type="button" onClick={() => exportResume()}>
+          Export CV to JSON
+        </Button>
       </section>
     </main>
   );

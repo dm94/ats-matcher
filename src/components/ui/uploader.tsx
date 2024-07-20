@@ -1,20 +1,24 @@
 "use client";
 import { useState, ChangeEvent } from "react";
 
-export default function Uploader() {
-  const [file, setFile] = useState<File>();
+type Props = {
+  onUpload: (value: File) => void;
+  acceptFiles: string;
+};
+
+export default function Uploader({ onUpload, acceptFiles }: Readonly<Props>) {
   const [dragOver, setDragOver] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
-      setFile(e.target.files[0]);
+      onUpload(e.target.files[0]);
     }
   };
 
   const handleDrop = (e: any) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    setFile(file);
+    onUpload(file);
     setDragOver(false);
   };
 
@@ -57,13 +61,12 @@ export default function Uploader() {
             <span className="font-semibold">Click to upload</span> or drag and
             drop
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">Only PDFs</p>
         </div>
         <input
           id="file-input"
           type="file"
           className="hidden"
-          accept="application/pdf"
+          accept={acceptFiles}
           onChange={handleChange}
         />
       </label>

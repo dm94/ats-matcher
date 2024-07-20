@@ -57,6 +57,7 @@ export function ConfigForm({ saveForm, id }: Readonly<Props>) {
           required
           value={baseURL}
           autoComplete="off"
+          placeholder="https://api.openai.com/v1"
           onChange={(e) => setBaseURL(e.target.value)}
         />
       </div>
@@ -80,6 +81,7 @@ export function ConfigForm({ saveForm, id }: Readonly<Props>) {
           id="model"
           required
           value={model}
+          placeholder="gpt-4-turbo"
           onChange={(e) => setModel(e.target.value)}
         />
       </div>

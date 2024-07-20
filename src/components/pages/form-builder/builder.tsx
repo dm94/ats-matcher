@@ -26,6 +26,7 @@ import { useAppDispatch, store } from "@/store";
 import { ListItem } from "./_components/list-item";
 import { shallowEqual } from "@/lib/utils";
 import { debounce } from "@/lib/debounce";
+import { SaveAlert } from "./_components/save-alert";
 
 type Props = {
   onSave: (value: CurriculumVidaeType) => void;
@@ -43,6 +44,7 @@ export default function Builder({ onSave }: Readonly<Props>) {
   const [email, setEmail] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [about, setAbout] = useState<string>("");
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -64,9 +66,13 @@ export default function Builder({ onSave }: Readonly<Props>) {
     state?.cv?.curriculumState && onSave(state.cv.curriculumState);
   }, []);
 
+  const debouncedHideSaveAlert = debounce(() => setShowAlert(false), 500);
+
   const saveForm = (resume: CurriculumVidaeType) => {
+    setShowAlert(true);
     dispatch(setCvState(resume));
     onSave(resume);
+    debouncedHideSaveAlert();
   };
 
   const debouncedSaveForm = debounce(saveForm, 1000);
@@ -100,7 +106,6 @@ export default function Builder({ onSave }: Readonly<Props>) {
       experiencie,
       projects,
       aditionalInfo,
-      debouncedSaveForm,
     ]
   );
 
@@ -159,6 +164,7 @@ export default function Builder({ onSave }: Readonly<Props>) {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-6 w-full max-w-xl">
+      {showAlert && <SaveAlert />}
       <div className="flex flex-col gap-2">
         <h2 className="font-semibold text-xl">Curriculum details</h2>
         <p className="text-sm">Fill in the data you want in your CV</p>

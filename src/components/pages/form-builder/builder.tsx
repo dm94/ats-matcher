@@ -21,11 +21,11 @@ import {
   AdditionalInfo,
   CurriculumVidaeType,
 } from "@/types/CurriculumVitae";
-import { Button } from "@/components/ui/button";
 import { setCvState } from "@/store/cvSlice";
 import { useAppDispatch, store } from "@/store";
 import { ListItem } from "./_components/list-item";
 import { shallowEqual } from "@/lib/utils";
+import { debounce } from "@/lib/debounce";
 
 type Props = {
   onSave: (value: CurriculumVidaeType) => void;
@@ -64,10 +64,49 @@ export default function Builder({ onSave }: Readonly<Props>) {
     state?.cv?.curriculumState && onSave(state.cv.curriculumState);
   }, []);
 
+  const saveForm = (resume: CurriculumVidaeType) => {
+    dispatch(setCvState(resume));
+    onSave(resume);
+  };
+
+  const debouncedSaveForm = debounce(saveForm, 1000);
+
+  useEffect(
+    () =>
+      debouncedSaveForm({
+        fullName,
+        position,
+        contact: {
+          location,
+          email,
+          phoneNumber,
+        },
+        socialLinks,
+        about,
+        education,
+        experiencie,
+        projects,
+        aditionalInfo,
+      }),
+    [
+      fullName,
+      position,
+      location,
+      email,
+      phoneNumber,
+      socialLinks,
+      about,
+      education,
+      experiencie,
+      projects,
+      aditionalInfo,
+      debouncedSaveForm,
+    ]
+  );
+
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const resume = {
+    saveForm({
       fullName,
       position,
       contact: {
@@ -81,11 +120,7 @@ export default function Builder({ onSave }: Readonly<Props>) {
       experiencie,
       projects,
       aditionalInfo,
-    };
-
-    dispatch(setCvState(resume));
-
-    onSave(resume);
+    });
   };
 
   const addEducation = (newEducation: Education) =>
@@ -285,7 +320,6 @@ export default function Builder({ onSave }: Readonly<Props>) {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
-      <Button type="submit">Save changes</Button>
     </form>
   );
 }

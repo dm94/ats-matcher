@@ -11,11 +11,11 @@ const generatePrompt = (resume: CurriculumVidaeType, offer: string): string => {
     position, about, education, experiencie, projects, aditionalInfo
   }
 
-  return `You are a recruitment specialist and so I am going to pass you a json-style curriculum vitae (CV) and the description of a job offer for you to evaluate it and say what improvements can be made to the CV so that it can be chosen for that job offer. 
-  The response should be concise and briefly explain the improvements to be made.
-  Check that the curriculum has the skills requested in the offer, that the about has interesting data for the position and in this case give some recommendation.
-    CV: ${JSON.stringify(resumeFiltered)}
-    offer: '${offer}'
+  return `You are a recruitment specialist. I will give you a JSON-style CV and a job offer description. Please evaluate the CV and suggest specific improvements to make it more suitable for the job offer. 
+Your response should be concise and focused on actionable changes.
+
+CV: ${JSON.stringify(resumeFiltered)}
+Job offer: '${offer}'
   `;
 }
 

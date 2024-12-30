@@ -17,7 +17,7 @@
     "@radix-ui/react-select": "^2.1.4",
     "@radix-ui/react-slot": "^1.1.1",
     "@react-pdf/renderer": "^3.4.4",
-    "@reduxjs/toolkit": "^2.2.6",
+    "@reduxjs/toolkit": "^2.5.0",
     "add": "^2.0.6",
     "ai": "^3.2.19",
     "class-variance-authority": "^0.7.1",

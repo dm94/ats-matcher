@@ -9,12 +9,13 @@ export function Header() {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
-    <header className="flex px-4 py-2 justify-between w-100">
-      <Link
-        className="flex justify-center items-center bg-background hover:bg-accent text-emerald-50 h-10 w-10 rounded-md"
-        href="/"
-        title="Home"
-      >
+    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
+      <div className="container flex h-14 items-center justify-between">
+        <Link
+          className="flex justify-center items-center bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-10 rounded-md"
+          href="/"
+          title="Home"
+        >
         <svg
           fill="#fff"
           version="1.1"
@@ -42,10 +43,11 @@ export function Header() {
             </g>
           </g>
         </svg>
-      </Link>
-      <ReduxProvider>
-        <ConfigModal open={open} setOpen={setOpen} />
-      </ReduxProvider>
+        </Link>
+        <ReduxProvider>
+          <ConfigModal open={open} setOpen={setOpen} />
+        </ReduxProvider>
+      </div>
     </header>
   );
 }
